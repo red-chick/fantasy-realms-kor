@@ -1,7 +1,7 @@
 var deck = {
   cards: [{
       id: 1,
-      suit: 'land',
+      suit: 'Land',
       name: '산',
       strength: 9,
       bonus: '<span class="weather">연기</span>와 <span class="flame">들불</span>이 모두 있으면 +50. <br />모든 <span class="flood">물</span>의 패널티 제거.',
@@ -17,7 +17,7 @@ var deck = {
     },
     {
       id: 2,
-      suit: 'land',
+      suit: 'Land',
       name: '동굴',
       strength: 6,
       bonus: '<span class="army">드워프 보병대</span>, <span class="beast">용</span> 중 하나라도 있으면 +25. <br />모든 <span class="weather">날씨</span>의 패널티 제거.',
@@ -33,7 +33,7 @@ var deck = {
     },
     {
       id: 3,
-      suit: 'land',
+      suit: 'Land',
       name: '종탑',
       strength: 8,
       bonus: '<span class="wizard">마법사</span>가 하나라도 있으면 +15.',
@@ -46,7 +46,7 @@ var deck = {
     },
     {
       id: 4,
-      suit: 'land',
+      suit: 'Land',
       name: '숲',
       strength: 7,
       bonus: '<span class="beast">야수</span> 1장동 +12. <span class="army">엘프 궁수대</span>가 있으면 +12.',
@@ -59,15 +59,15 @@ var deck = {
     },
     {
       id: 5,
-      suit: 'land',
+      suit: 'Land',
       name: '대지의 정령',
       strength: 4,
       bonus: '다른 <span class="land">땅</span> 1장당 +15.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('land', this.id);
+        return 15 * hand.countSuitExcluding('Land', this.id);
       },
-      relatedSuits: ['land'],
+      relatedSuits: ['Land'],
       relatedCards: []
     },
     {
@@ -80,7 +80,7 @@ var deck = {
       bonusScore: function(hand) {
         var max = 0;
         for (const card of hand.nonBlankedCards()) {
-          if (card.suit === 'Weapon' || card.suit === 'Flood' || card.suit === 'Flame' || card.suit === 'land' || card.suit === 'Weather') {
+          if (card.suit === 'Weapon' || card.suit === 'Flood' || card.suit === 'Flame' || card.suit === 'Land' || card.suit === 'Weather') {
             if (card.strength > max) {
               max = card.strength;
             }
@@ -88,7 +88,7 @@ var deck = {
         }
         return max;
       },
-      relatedSuits: ['Weapon', 'Flood', 'Flame', 'land', 'Weather'],
+      relatedSuits: ['Weapon', 'Flood', 'Flame', 'Land', 'Weather'],
       relatedCards: []
     },
     {
@@ -117,10 +117,10 @@ var deck = {
       penalty: '모든 <span class="army">군대</span> 무효, 모든 <span class="land">땅</span> 무효 (<span class="land">산</span> 예외), 모든 <span class="flame">불</span> 무효 (<span class="flame">번개</span> 예외).',
       blanks: function(card, hand) {
         return (card.suit === 'Army' && !(hand.containsId(25) || hand.containsId(41))) || // these clear the word 'Army' from the penalty
-          (card.suit === 'land' && card.name !== '산') ||
+          (card.suit === 'Land' && card.name !== '산') ||
           (card.suit === 'Flame' && card.name !== '번개');
       },
-      relatedSuits: ['Army', 'land', 'Flame'],
+      relatedSuits: ['Army', 'Land', 'Flame'],
       relatedCards: ['산', '번개']
     },
     {
@@ -214,7 +214,7 @@ var deck = {
       suit: 'Weather',
       name: '대기의 정령',
       strength: 4,
-      bonus: '+15 for each other <span class="weather">Weather</span>.',
+      bonus: '다른 <span class="weather">날씨</span> 1장당 +15.',
       penalty: null,
       bonusScore: function(hand) {
         return 15 * hand.countSuitExcluding('Weather', this.id);
@@ -240,22 +240,22 @@ var deck = {
     {
       id: 17,
       suit: 'Flame',
-      name: 'Candle',
+      name: '양초',
       strength: 2,
-      bonus: '+100 with <span class="artifact">Book of Changes</span>, <span class="land">종탑</span>, and any one <span class="wizard">마법사</span>.',
+      bonus: '<span class="artifact">변화의 책</span>과 <span class="land">종탑</span>이 모두 있고, <span class="wizard">마법사</span>가 하나라도 있으면 +100.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Book of Changes') && hand.contains('종탑') && hand.containsSuit('Wizard') ? 100 : 0;
+        return hand.contains('변화의 책') && hand.contains('종탑') && hand.containsSuit('Wizard') ? 100 : 0;
       },
       relatedSuits: ['Wizard'],
-      relatedCards: ['Book of Changes', '종탑']
+      relatedCards: ['변화의 책', '종탑']
     },
     {
       id: 18,
       suit: 'Flame',
-      name: 'Forge',
+      name: '대장간',
       strength: 9,
-      bonus: '+9 for each <span class="weapon">Weapon</span> and <span class="artifact">Artifact</span>.',
+      bonus: '<span class="weapon">무기</span>와 <span class="artifact">유물</span> 1장당 +9.',
       penalty: null,
       bonusScore: function(hand) {
         return 9 * (hand.countSuit('Weapon') + hand.countSuit('Artifact'));
@@ -266,9 +266,9 @@ var deck = {
     {
       id: 19,
       suit: 'Flame',
-      name: 'Lightning',
+      name: '번개',
       strength: 11,
-      bonus: '+30 with <span class="weather">Rainstorm</span>.',
+      bonus: '<span class="weather">폭풍우</span>가 있으면 +30.',
       penalty: null,
       bonusScore: function(hand) {
         return hand.contains('폭풍우') ? 30 : 0;
@@ -279,9 +279,9 @@ var deck = {
     {
       id: 20,
       suit: 'Flame',
-      name: 'Fire Elemental',
+      name: '불의 정령',
       strength: 4,
-      bonus: '+15 for each other <span class="flame">Flame</span>.',
+      bonus: '다른 <span class="flame">불</span> 1장당 +15.',
       penalty: null,
       bonusScore: function(hand) {
         return 15 * hand.countSuitExcluding('Flame', this.id);
@@ -292,10 +292,10 @@ var deck = {
     {
       id: 21,
       suit: 'Army',
-      name: 'Knights',
+      name: '기사단',
       strength: 20,
       bonus: null,
-      penalty: '-8 unless with at least one <span class="leader">Leader</span>.',
+      penalty: '<span class="leader">지도자</span>가 하나도 없으면 -8.',
       penaltyScore: function(hand) {
         return hand.containsSuit('Leader') ? 0 : -8;
       },
@@ -307,7 +307,7 @@ var deck = {
       suit: 'Army',
       name: '엘프 궁수대',
       strength: 10,
-      bonus: '+5 if no <span class="weather">Weather</span>.',
+      bonus: '<span class="weather">날씨</span>가 하나도 없으면 +5.',
       penalty: null,
       bonusScore: function(hand) {
         return hand.containsSuit('Weather') ? 0 : 5;
@@ -318,14 +318,14 @@ var deck = {
     {
       id: 23,
       suit: 'Army',
-      name: 'Light Cavalry',
+      name: '경기병대',
       strength: 17,
       bonus: null,
-      penalty: '-2 for each <span class="land">땅</span>.',
+      penalty: '<span class="land">땅</span> 1장당 -2.',
       penaltyScore: function(hand) {
-        return -2 * hand.countSuit('land');
+        return -2 * hand.countSuit('Land');
       },
-      relatedSuits: ['land'],
+      relatedSuits: ['Land'],
       relatedCards: []
 
     },
@@ -335,7 +335,7 @@ var deck = {
       name: '드워프 보병대',
       strength: 15,
       bonus: null,
-      penalty: '-2 for each other <span class="army">Army</span>.',
+      penalty: '다른 <span class="army">군대</span> 1장당 -2.',
       penaltyScore: function(hand) {
         if (!hand.containsId(25)) { // clears the word 'Army' from the penalty
           return -2 * hand.countSuitExcluding('Army', this.id);
@@ -348,22 +348,22 @@ var deck = {
     {
       id: 25,
       suit: 'Army',
-      name: 'Rangers',
+      name: '돌격대',
       strength: 5,
-      bonus: '+10 for each <span class="land">땅</span>. <br />CLEARS the word <span class="army">Army</span> from all Penalties.',
+      bonus: '<span class="land">땅</span> 1장당 +10. <br />모든 카드의 페널티에서 <span class="army">군대</span>를 제거.',
       penalty: null,
       bonusScore: function(hand) {
-        return 10 * hand.countSuit('land');
+        return 10 * hand.countSuit('Land');
       },
-      relatedSuits: ['land', 'Army'],
+      relatedSuits: ['Land', 'Army'],
       relatedCards: []
     },
     {
       id: 26,
       suit: 'Wizard',
-      name: 'Collector',
+      name: '수집가',
       strength: 7,
-      bonus: '+10 if three different cards in same suit, +40 if four different cards in same suit, +100 if five different cards in same suit.',
+      bonus: '종류가 같고, 이름은 같지 않은 카드 3장당 +10, 4장 +40, 5장 +100.',
       penalty: null,
       bonusScore: function(hand) {
         var bySuit = {};
@@ -393,9 +393,9 @@ var deck = {
     {
       id: 27,
       suit: 'Wizard',
-      name: 'Beastmaster',
+      name: '야수 조련사',
       strength: 9,
-      bonus: '+9 for each <span class="beast">Beast</span>. <br />CLEARS the Penalty on all <span class="beast">Beasts</span>.',
+      bonus: '<span class="beast">야수</span> 1장당 +9. <br />모든 <span class="beast">야수</span>의 패널티 제거.',
       penalty: null,
       bonusScore: function(hand) {
         return 9 * hand.countSuit('Beast');
@@ -409,9 +409,9 @@ var deck = {
     {
       id: 28,
       suit: 'Wizard',
-      name: 'Necromancer',
+      name: '강령술사',
       strength: 3,
-      bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">마법사</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.',
+      bonus: '게임 종료 후 버려진 <span class="army">군대</span>, <span class="leader">지도자</span>, <span class="wizard">마법사</span>, <span class="beast">야수</span> 중 1장을 가져와서 8번째 카드로 계산 가능.',
       penalty: null,
       relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast'],
       relatedCards: []
@@ -419,10 +419,10 @@ var deck = {
     {
       id: 29,
       suit: 'Wizard',
-      name: 'Warlock Lord',
+      name: '대마도사',
       strength: 25,
       bonus: null,
-      penalty: '-10 for each <span class="leader">Leader</span> and other <span class="wizard">마법사</span>.',
+      penalty: '<span class="leader">지도자</span>와 다른 <span class="wizard">마법사</span> 1장당 -10.',
       penaltyScore: function(hand) {
         return -10 * (hand.countSuit('Leader') + hand.countSuitExcluding('Wizard', this.id));
       },
@@ -432,48 +432,48 @@ var deck = {
     {
       id: 30,
       suit: 'Wizard',
-      name: 'Enchantress',
+      name: '여마도사',
       strength: 5,
-      bonus: '+5 for each <span class="land">땅</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span>, and <span class="flame">Flame</span>.',
+      bonus: '<span class="land">땅</span>, <span class="weather">날씨</span>, <span class="flood">물</span>, <span class="flame">불</span> 1장당 +5.',
       penalty: null,
       bonusScore: function(hand) {
-        return 5 * (hand.countSuit('land') + hand.countSuit('Weather') + hand.countSuit('Flood') + hand.countSuit('Flame'));
+        return 5 * (hand.countSuit('Land') + hand.countSuit('Weather') + hand.countSuit('Flood') + hand.countSuit('Flame'));
       },
-      relatedSuits: ['land', 'Weather', 'Flood', 'Flame'],
+      relatedSuits: ['Land', 'Weather', 'Flood', 'Flame'],
       relatedCards: []
     },
     {
       id: 31,
       suit: 'Leader',
-      name: 'King',
+      name: '왕',
       strength: 8,
-      bonus: '+5 for each <span class="army">Army</span>. <br />OR +20 for each <span class="army">Army</span> if with <span class="leader">Queen</span>.',
+      bonus: '<span class="army">군대</span> 1장당 +5. <br />또는 <span class="leader">여왕</span>이 있으면, <span class="army">군대</span> 1장당 +20.',
       penalty: null,
       bonusScore: function(hand) {
-        return (hand.contains('Queen') ? 20 : 5) * hand.countSuit('Army');
+        return (hand.contains('여왕') ? 20 : 5) * hand.countSuit('Army');
       },
       relatedSuits: ['Army'],
-      relatedCards: ['Queen']
+      relatedCards: ['여왕']
     },
     {
       id: 32,
       suit: 'Leader',
-      name: 'Queen',
+      name: '여왕',
       strength: 6,
-      bonus: '+5 for each <span class="army">Army</span>. <br />OR +20 for each <span class="army">Army</span> if with <span class="leader">King</span>.',
+      bonus: '<span class="army">군대</span> 1장당 +5. <br />또는 <span class="leader">왕</span>이 있으면, <span class="army">군대</span> 1장당 +20.',
       penalty: null,
       bonusScore: function(hand) {
-        return (hand.contains('King') ? 20 : 5) * hand.countSuit('Army');
+        return (hand.contains('왕') ? 20 : 5) * hand.countSuit('Army');
       },
       relatedSuits: ['Army'],
-      relatedCards: ['King']
+      relatedCards: ['왕']
     },
     {
       id: 33,
       suit: 'Leader',
-      name: 'Princess',
+      name: '공주',
       strength: 2,
-      bonus: '+8 for each <span class="army">Army</span>, <span class="wizard">마법사</span>, and other <span class="leader">Leader</span>.',
+      bonus: '<span class="army">군대</span>, <span class="wizard">마법사</span>, 다른 <span class="leader">지도자</span> 1장당 +8.',
       penalty: null,
       bonusScore: function(hand) {
         return 8 * (hand.countSuit('Army') + hand.countSuit('Wizard') + hand.countSuitExcluding('Leader', this.id));
@@ -484,9 +484,9 @@ var deck = {
     {
       id: 34,
       suit: 'Leader',
-      name: 'Warlord',
+      name: '장군',
       strength: 4,
-      bonus: 'The sum of the base strength of all <span class="army">Armies</span>.',
+      bonus: '모든 <span class="army">군대</span>의 기본 힘의 합.',
       penalty: null,
       bonusScore: function(hand) {
         var total = 0;
@@ -503,10 +503,10 @@ var deck = {
     {
       id: 35,
       suit: 'Leader',
-      name: 'Empress',
+      name: '황후',
       strength: 15,
-      bonus: '+10 for each <span class="army">Army</span>.',
-      penalty: '-5 for each other <span class="leader">Leader</span>.',
+      bonus: '<span class="army">군대</span> 1장당 +10.',
+      penalty: '다른 <span class="leader">지도자</span> 1장당 -5.',
       bonusScore: function(hand) {
         return 10 * hand.countSuit('Army');
       },
@@ -521,21 +521,21 @@ var deck = {
       suit: 'Beast',
       name: '유니콘',
       strength: 9,
-      bonus: '+30 with <span class="leader">Princess</span>. <br />OR +15 with <span class="leader">Empress</span>, <span class="leader">Queen</span>, or <span class="leader">Enchantress</span>.',
+      bonus: '<span class="leader">공주</span>가 있으면 +30. <br />또는 <span class="leader">황후</span>, <span class="leader">여왕</span>, <span class="leader">여마도사</span> 중 하나라도 있으면 +15.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Princess') ? 30 : (hand.contains('Empress') || hand.contains('Queen') || hand.contains('Enchantress')) ? 15 : 0;
+        return hand.contains('공주') ? 30 : (hand.contains('황후') || hand.contains('여왕') || hand.contains('여마도사')) ? 15 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['Princess', 'Empress', 'Queen', 'Enchantress']
+      relatedCards: ['공주', '황후', '여왕', '여마도사']
     },
     {
       id: 37,
       suit: 'Beast',
-      name: 'Basilisk',
+      name: '바실리스크',
       strength: 35,
       bonus: null,
-      penalty: 'BLANKS all <span class="army">Armies</span>, <span class="leader">Leaders</span>, and other <span class="beast">Beasts</span>.',
+      penalty: '모든 <span class="army">군대</span>, 모든 <span class="leader">지도자</span>, 다른 모든 <span class="beast">야수</span> 무효.',
       blanks: function(card, hand) {
         return (card.suit === 'Army' && !hand.containsId(25)) || // clears the word 'Army' from the penalty
           card.suit === 'Leader' ||
@@ -547,9 +547,9 @@ var deck = {
     {
       id: 38,
       suit: 'Beast',
-      name: 'Warhorse',
+      name: '군마',
       strength: 6,
-      bonus: '+14 with any <span class="leader">Leader</span> or <span class="wizard">마법사</span>.',
+      bonus: '<span class="leader">지도자</span>나 <span class="wizard">마법사</span>가 하나라도 있으면 +14.',
       penalty: null,
       bonusScore: function(hand) {
         return hand.containsSuit('Leader') || hand.containsSuit('Wizard') ? 14 : 0;
@@ -563,7 +563,7 @@ var deck = {
       name: '용',
       strength: 30,
       bonus: null,
-      penalty: '-40 unless with at least one <span class="wizard">마법사</span>.',
+      penalty: '<span class="wizard">마법사</span>가 하나도 없으면 -40.',
       penaltyScore: function(hand) {
         return hand.containsSuit('Wizard') ? 0 : -40;
       },
@@ -573,23 +573,23 @@ var deck = {
     {
       id: 40,
       suit: 'Beast',
-      name: 'Hydra',
+      name: '히드라',
       strength: 12,
-      bonus: '+28 with <span class="flood">Swamp</span>.',
+      bonus: '<span class="flood">늪</span>이 있으면 +28.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('Swamp') ? 28 : 0;
+        return hand.contains('늪') ? 28 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['Swamp']
+      relatedCards: ['늪']
     },
     {
       id: 41,
       suit: 'Weapon',
-      name: 'Warship',
+      name: '전함',
       strength: 23,
-      bonus: 'CLEARS the word <span class="army">Army</span> from all Penalties of all <span class="flood">Floods</span>.',
-      penalty: 'BLANKED unless with at least one <span class="flood">Flood</span>.',
+      bonus: '모든 <span class="flood">물</span>의 페널티에서 <span class="army">군대</span>를 제거.',
+      penalty: '<span class="flood">물</span>이 하나도 없으면 이 카드는 무효.',
       blankedIf: function(hand) {
         return !hand.containsSuit('Flood');
       },
@@ -599,9 +599,9 @@ var deck = {
     {
       id: 42,
       suit: 'Weapon',
-      name: 'Magic Wand',
+      name: '마법 지팡이',
       strength: 1,
-      bonus: '+25 with any one <span class="wizard">마법사</span>.',
+      bonus: '<span class="wizard">마법사</span>가 하나라도 있으면 +25.',
       penalty: null,
       bonusScore: function(hand) {
         return hand.containsSuit('Wizard') ? 25 : 0;
@@ -612,36 +612,36 @@ var deck = {
     {
       id: 43,
       suit: 'Weapon',
-      name: 'Sword of Keth',
+      name: '케드의 검',
       strength: 7,
-      bonus: '+10 with any one <span class="leader">Leader</span>. <br />OR +40 with both <span class="leader">Leader</span> and <span class="artifact">Shield of Keth</span>.',
+      bonus: '<span class="leader">지도자</span>가 하나라도 있으면 +10. <br />또는 <span class="leader">지도자</span>가 하나라도 있고, <span class="artifact">케드의 방패</span>가 있으면 +40.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Leader') ? (hand.contains('Shield of Keth') ? 40 : 10) : 0;
+        return hand.containsSuit('Leader') ? (hand.contains('케드의 방패') ? 40 : 10) : 0;
       },
       relatedSuits: ['Leader'],
-      relatedCards: ['Shield of Keth']
+      relatedCards: ['케드의 방패']
     },
     {
       id: 44,
       suit: 'Weapon',
-      name: 'Elven Longbow',
+      name: '엘프의 장궁',
       strength: 3,
-      bonus: '+30 with <span class="army">엘프 궁수대</span>, <span class="leader">Warlord</span> or <span class="wizard">Beastmaster</span>.',
+      bonus: '<span class="army">엘프 궁수대</span>, <span class="leader">장군</span>, <span class="wizard">야수 조련사</span> 중 하나라도 있으면 +30.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.contains('엘프 궁수대') || hand.contains('Warlord') || hand.contains('Beastmaster') ? 30 : 0;
+        return hand.contains('엘프 궁수대') || hand.contains('장군') || hand.contains('야수 조련사') ? 30 : 0;
       },
       relatedSuits: [],
-      relatedCards: ['엘프 궁수대', 'Warlord', 'Beastmaster']
+      relatedCards: ['엘프 궁수대', '장군', '야수 조련사']
     },
     {
       id: 45,
       suit: 'Weapon',
-      name: 'War Dirigible',
+      name: '전투 비행선',
       strength: 35,
       bonus: null,
-      penalty: 'BLANKED unless with at least one <span class="army">Army</span>. <br />BLANKED with any <span class="weather">Weather</span>.',
+      penalty: '<span class="army">군대</span>가 하나도 없거나, <span class="weather">날씨</span>가 하나라도 있으면 이 카드는 무효.',
       blankedIf: function(hand) {
         return !hand.containsSuit('Army') || hand.containsSuit('Weather');
       },
@@ -651,22 +651,22 @@ var deck = {
     {
       id: 46,
       suit: 'Artifact',
-      name: 'Shield of Keth',
+      name: '케드의 방패',
       strength: 4,
-      bonus: '+15 with any one <span class="leader">Leader</span>. <br />OR +40 with both <span class="leader">Leader</span> and <span class="weapon">Sword of Keth</span>.',
+      bonus: '<span class="leader">지도자</span>가 하나라도 있으면 +15. <br />또는 <span class="leader">지도자</span>가 하나라도 있고, <span class="weapon">케드의 검</span>이 있으면 +40.',
       penalty: null,
       bonusScore: function(hand) {
-        return hand.containsSuit('Leader') ? (hand.contains('Sword of Keth') ? 40 : 15) : 0;
+        return hand.containsSuit('Leader') ? (hand.contains('케드의 검') ? 40 : 15) : 0;
       },
       relatedSuits: ['Leader'],
-      relatedCards: ['Sword of Keth']
+      relatedCards: ['케드의 검']
     },
     {
       id: 47,
       suit: 'Artifact',
-      name: 'Gem of Order',
+      name: '질서의 보석',
       strength: 5,
-      bonus: '+10 for 3-card run, +30 for 4-card run, +60 for 5-card run, +100 for 6-card run, +150 for 7-card run. <br />(This refers to the base strength numbers.)',
+      bonus: '카드들 중 기본 힘이 연속된 숫자로 3장이면 +10, 4장이면 +30, 5장이면 +60, 6장이면 +100, 7장이면 +150.',
       penalty: null,
       bonusScore: function(hand) {
         var strengths = hand.nonBlankedCards().map(card => card.strength);
@@ -702,9 +702,9 @@ var deck = {
     {
       id: 48,
       suit: 'Artifact',
-      name: 'World Tree',
+      name: '세계수',
       strength: 2,
-      bonus: '+50 if every non-BLANKED card is a different suit.',
+      bonus: '무효가 되지 않은 모든 카드들의 종류가 같지 않다면 +50.',
       penalty: null,
       bonusScore: function(hand) {
         var suits = [];
@@ -722,20 +722,20 @@ var deck = {
     {
       id: 49,
       suit: 'Artifact',
-      name: 'Book of Changes',
+      name: '변화의 책',
       strength: 3,
-      bonus: 'You may change the suit of one other card. Its name, bonuses and penalties remain the same.',
+      bonus: '손에 있는 다른 카드 1장의 종류를 변경 가능. </br>이름, 기본 힘, 보너스, 페널티는 그대로 유지.',
       penalty: null,
-      action: 'Pick a suit and a target card from your hand.',
-      relatedSuits: [], // empty because the main reason for relatedSuits is to determine how to use 'Book of Changes'
+      action: '변화 시킬 카드를 손에서 고르시오.',
+      relatedSuits: [], // empty because the main reason for relatedSuits is to determine how to use '변화의 책'
       relatedCards: []
     },
     {
       id: 50,
       suit: 'Artifact',
-      name: 'Protection Rune',
+      name: '보호의 룬',
       strength: 1,
-      bonus: 'CLEARS the Penalty on all cards.',
+      bonus: '모든 카드의 페널티 제거',
       penalty: null,
       clearsPenalty: function(card) {
         return true;
@@ -746,42 +746,42 @@ var deck = {
     {
       id: 51,
       suit: 'Wild',
-      name: 'Shapeshifter',
+      name: '변신 능력자',
       strength: 0,
-      bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">마법사</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
+      bonus: '게임 전체의 <span class="artifact">유물</span>, <span class="leader">지도자</span>, <span class="wizard">마법사</span>, <span class="weapon">무기</span>, <span class="beast">야수</span> 중 1장의 이름과 종류를 복사 가능. <br />보너스, 페널티, 기본 힘은 복사 불가.',
       penalty: null,
-      action: 'Pick a target card to duplicate.',
+      action: '복제할 카드를 고르시오.',
       relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast'].sort(),
       relatedCards: []
     },
     {
       id: 52,
       suit: 'Wild',
-      name: 'Mirage',
+      name: '신기루',
       strength: 0,
-      bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">땅</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
+      bonus: '게임 전체의 <span class="army">군대</span>, <span class="land">땅</span>, <span class="weather">날씨</span>, <span class="flood">물</span>, <span class="flame">불</span> 중 1장의 이름과 종류를 복사 가능. <br />보너스, 페널티, 기본 힘은 복사 불가',
       penalty: null,
-      action: 'Pick a target card to duplicate.',
-      relatedSuits: ['Army', 'land', 'Weather', 'Flood', 'Flame'].sort(),
+      action: '복제할 카드를 고르시오',
+      relatedSuits: ['Army', 'Land', 'Weather', 'Flood', 'Flame'].sort(),
       relatedCards: []
     },
     {
       id: 53,
       suit: 'Wild',
-      name: 'Doppelgänger',
+      name: '도플갱어',
       strength: 0,
-      bonus: '<b>Doppelgänger</b> may duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.',
+      bonus: '손에 있는 다른 카드 1장의 이름, 종류, 기본 힘, 페널티를 복사 가능. <br />보너스는 복사 불가',
       penalty: null,
-      action: 'Pick a card from your hand to duplicate.',
+      action: '복제할 카드를 손에서 고르시오',
       relatedSuits: [],
       relatedCards: []
     },
     {
       id: 54,
       suit: 'Wizard',
-      name: 'Jester',
+      name: '광대',
       strength: 3,
-      bonus: '+3 for each other card with an odd base value. <br />OR +50 if entire hand has odd base values.',
+      bonus: '(다른) 기본 힘이 홀수인 카드마다 +3. <br />또는 모든 카드의 기본 힘이 홀수면 +50.',
       penalty: null,
       bonusScore: function(hand) {
         var oddCount = 0;
@@ -829,7 +829,7 @@ var deck = {
 };
 
 function allSuits() {
-  return ['land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'].sort();
+  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'].sort();
 }
 
 var NONE = -1;

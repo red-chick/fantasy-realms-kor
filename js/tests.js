@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  assertScoreByName(['Blizzard', 'Great Flood', 'Elven Archers'], 35);
-  assertScoreByName(['Smoke', 'Dwarvish Infantry', 'War Dirigible'], 50);
-  assertScoreByName(['Candle', 'Smoke', 'Dwarvish Infantry', 'War Dirigible'], 44);
+  assertScoreByName(['눈보라', '대홍수', '엘프 궁수대'], 35);
+  assertScoreByName(['연기', '드워프 보병대', '전투 비행선'], 50);
+  assertScoreByName(['양초', '연기', '드워프 보병대', '전투 비행선'], 44);
   assertScoreByCode('21,24,25,31,32,43,46+', 265);
   assertScoreByCode('6,7,8,9,10,11,26+', 326);
   assertScoreByCode('18,22,31,32,43,46,47+', 351, 'Max score without special cards?');
