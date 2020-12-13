@@ -116,6 +116,7 @@ function useCard(id) {
       suits: allSuits()
     });
     $('#cards').html(html);
+    changeSuitToKor(true)
   } else if (id === SHAPESHIFTER || id == MIRAGE) {
     hand.undoCardAction(id);
     var duplicator = hand.getCardById(id);
@@ -152,4 +153,32 @@ function showCards(suits) {
     suits: deck.getCardsBySuit(suits)
   });
   $('#cards').html(html);
+  changeSuitToKor();
+}
+
+var KOR_SUIT = {
+  Army: '군대',
+  Artifact: '유물',
+  Beast: '야수',
+  Flame: '불',
+  Flood: '물',
+  Land: '땅',
+  Leader: '지도자',
+  Weapon: '무기',
+  Weather: '날씨',
+  Wild: '불명',
+  Wizard: '마법사'
+}
+
+function changeSuitToKor(isBookOfChanges) {
+  const headers = document.getElementsByClassName('card-header')
+  for (let index = 0; index < headers.length; index++) {
+    if(isBookOfChanges) {
+      var suit = headers[index].innerHTML.trim()
+      headers[index].innerHTML = KOR_SUIT[suit]
+    } else {
+      var suit = headers[index].children[0].innerHTML
+      headers[index].children[0].innerHTML = KOR_SUIT[suit]
+    }
+  }
 }
